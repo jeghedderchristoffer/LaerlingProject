@@ -1,0 +1,107 @@
+﻿@model Job
+@{ 
+    ViewData["Title"] = "Information"; 
+}
+
+@inject LaerlingProject.Repository.IFagRepository Fag
+@inject LaerlingProject.Repository.ICityRepository City
+
+
+<div class="container">
+    <div class="col-md-8">
+        <div class="panel panel-default no-rounded-corners" style="margin-top:30px">
+            <div class="panel-body">
+                    <h3 style="margin-bottom:30px; margin-left:5px"><b>@Fag.GetFag(Model.FagId).Name</b> - @Model.OpgaveType</h3>
+               
+                <table class="table table-condensed" style="margin-bottom:5px">
+                    <tr>
+                        <td class="h5"><b>Fag:</b> </td>
+                        <td class="h5">@Fag.GetFag(Model.FagId).Name</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Omhandler:</b> </td>
+                        <td class="h5">@Model.OpgaveType</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>By:</b> </td>
+                        <td class="h5">@City.GetCity(Model.CityId).Name</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Dato:</b> </td>
+                        <td class="h5">@Model.JobDato.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Tidspunkt:</b> </td>
+                        <td class="h5">@Model.JobDato.ToString("HH:mm")</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Forventet tid:</b></td>
+                        @if (Model.ForventetTid == null)
+                        {
+                            <td>Ved ikke</td>
+                        }
+                        else
+                        {
+                            <td>@Model.ForventetTid timer</td>
+                        }
+
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Løn:</b> </td>
+                        <td class="h5">@Model.Løn DKK</td>
+                    </tr>
+                    <tr>
+                        <td class="h5"><b>Job beskrivelse:</b></td>
+                        <td class="h5"><b></b></td>
+                    </tr>
+                   
+                </table>
+                <p class="job-beskrive">@Model.JobBeskrivelse</p>
+    
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel-group lg" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: 30px">
+            <div class="panel panel-info no-rounded-corners">
+                <div class="panel-heading  no-rounded-corners" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Send en besked
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <p>Har du spørgsmål til jobbet?</p>
+                        <form asp-controller="Jobs" asp-action="" method="post">
+                            <textarea class="form-control no-rounded-corners" style="max-width:100%" rows="5" placeholder="Stil dem her..."></textarea>
+                            <hr />
+                            <input value="Send besked" type="submit" class="btn btn-success no-rounded-corners" style="min-width: 100%" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info no-rounded-corners">
+                <div class="panel-heading no-rounded-corners" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Søg jobbet
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form asp-controller="Jobs" asp-action="" method="post">
+                            <input />
+                            <hr />
+                            <input value="Send besked" type="submit" class="btn btn-success no-rounded-corners" style="min-width: 100%" />
+                        </form>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+   
+</div>

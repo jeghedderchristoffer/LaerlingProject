@@ -1,0 +1,474 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display: inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+
+.btn-bracketed::after {
+    display: inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.no-padding-left-right {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+
+
+.profile-usermenu {
+    margin-top: 30px;
+    padding: 0 !important;
+}
+
+    .profile-usermenu ul li {
+        border-bottom: 1px solid #f0f4f7;
+    }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+            .profile-usermenu ul li a i {
+                margin-right: 8px;
+                font-size: 14px;
+            }
+
+            .profile-usermenu ul li a:hover {
+                background-color: #fafcfd;
+                color: #5b9bd1;
+            }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+            .profile-usermenu ul li.active a {
+                color: #5b9bd1;
+                background-color: #f6f9fb;
+                border-left: 2px solid #5b9bd1;
+                margin-left: -2px;
+            }
+
+.no-rounded-corners {
+    border-radius: 0 !important;
+}
+
+
+/*-------------------------------------------------*/
+
+
+
+.select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    border-radius: 0 !important;
+    cursor: pointer;
+    display: block;
+    min-height: 46px !important;
+    user-select: none;
+    -webkit-user-select: none;
+    font-size: 18px;
+    padding: 6px;
+    padding-bottom: 2px !important;
+    padding-left: 10px !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #5b9bd1 1px !important;
+    outline: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #f6f9fb !important;
+    border: 1px solid #aaa;
+    border-radius: 0 !important;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 2px 7px !important;
+    font-size: 15px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 5px 5px;
+    width: 100%;
+}
+
+.select2-search--dropdown {
+    display: block;
+    padding: 4px;
+}
+
+    .select2-search--dropdown .select2-search__field {
+        padding: 4px;
+        width: 100%;
+        min-width: 100%;
+        box-sizing: border-box;
+    }
+
+        .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+
+    .select2-search--dropdown.select2-search--hide {
+        display: none;
+    }
+
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 48px !important;
+    font-size: 18px;
+    padding: 10px 16px !important;
+    padding-left: 8px !important;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 0 !important;
+}
+
+
+/*NAVBAR --------------------------*/
+
+
+.custom-navbar {
+    background-color: #0a287e;
+    color: #FFFFFF;
+    border: 0;
+}
+
+.brand {
+    margin-bottom: 16px !important;
+    padding-left: 10px;
+    padding-right: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.border-color {
+    border-color: #fff !important;
+}
+
+.toggle-custom {
+    border-color: #fff !important;
+    background-color: #0a287e !important;
+}
+
+    .toggle-custom:hover {
+        background-color: #0a287e !important;
+    }
+
+@media (max-width: 767px) {
+    .toggle-custom {
+        margin-top: 19px;
+    }
+}
+
+.navbar-nav > li > a {
+    line-height: 45px;
+    letter-spacing: 1.2px;
+    border-bottom: 3px;
+    border-color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav > li > a {
+        line-height: 20px;
+    }
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #b8caf2;
+}
+
+
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+        background-color: #fff;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #b8caf2;
+    }
+}
+
+.navbar-nav > li > .dropdown-menu {
+    margin-top: -1px;
+    min-width: 200px;
+}
+
+/*------------------------------------------------------------------------*/
+
+.vertical-line {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    height: 100%;
+}
+
+.img-container {
+    height: 220px;
+    width: 220px;
+}
+
+    .img-container img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+.profile-container {
+    font-size: 18px;
+}
+
+.no-margin-top-bot {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/*----------------------------------------------------FindJobPage----------------------------------------------*/
+
+.a-jobs-list {
+    color: #000;
+}
+
+    .a-jobs-list:hover {
+        color: #286090;
+    }
+
+.job-beskrive {
+    padding: 5px;
+    margin-top: 0;
+    padding-top: 0;
+    line-height: 1.4;
+}
+
+/*---------------------------------------------IndexHomePage-----------------------------------------------------*/
+
+
+.full {
+    background: url('../images/pexels-photo-65050.jpeg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 70vh;
+}
+
+    .full h1 {
+        margin-top: 0;
+        margin-bottom: 30px;
+        padding-top: 20vh;
+        color: #fff;
+        text-align: center;
+        font-size: 56px;
+        font-style: normal;
+    }
+
+    .full p {
+        color: #fff;
+        text-align: center;
+        font-size: 23px;
+        font-style: normal;
+    }
+
+    .full input {
+        display: initial
+    }
+
+@media (max-width: 767px) {
+    .full h1 {
+        font-size: 33px;
+    }
+}
+
+
+.search-form {
+    text-align: center; 
+        
+}
+
+.btn-search {
+    background-color: #0a287e;
+    color: #fff;
+}
+
+    .btn-search:hover {
+        color: #aaa;
+    }
+
+.after-full {
+    height: 75px;
+    min-height: 75px;
+    background-color: #0a287e;
+}
+
+    .after-full p {
+        color: #fff;
+        padding-top: 27px;
+        font-size: 15px;
+    }
+
+    .after-full button {
+        background-color: #fff;
+        color: #0a287e;
+        margin-top: 15px;
+        border: 1px solid black;
+    }
+
+        .after-full button:hover {
+            text-decoration: underline;
+            color: #0a287e;
+        }
+
+@media (max-width: 991px) {
+
+    .after-full p {
+        padding-top: 17px;
+    }
+
+    .after-full button {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 767px){
+    .after-full {
+        visibility: hidden;
+    }
+}
+
+.info-container {
+    padding-top: 50px;
+}
+
+    .info-container h1 {
+        color: #000;
+        text-align: center;
+        font-size: 35px;
+        font-style: normal;
+        margin-bottom: 10px
+    }
+
+    .info-container p {
+        margin-bottom: 30px; 
+        font-size: 16px; 
+        margin-top: 30px; 
+        
+        
+    }
+
+@media (max-width: 767px) {
+
+
+        .info-container h1 {
+            font-size: 25px;
+        }
+}
+
+@media (max-width: 767px) {
+    .info-container {
+        padding-top: 0;
+    }
+}
+
+.numberCircle {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    width: 66px;
+    height: 66px;
+    padding: 13px;
+    background: #fff;
+    border: 2px solid #0a287e;
+    color: black;
+    text-align: center;
+    font: 32px Arial, sans-serif;
+    display: inline-block;
+    margin-top: 80px
+}
+
+
+
+@media (max-width: 991px) {
+    .numberCircle {
+        margin-top: 20px;
+    }
+}
+
+.aboutus-container {
+    height: 500px; 
+    background-color: #f7f7f7;
+}
+
+.aboutus-container h1 {
+    margin-top: 70px;
+    text-align: center;
+    font-size: 35px;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/

@@ -1,0 +1,165 @@
+﻿@inject LaerlingProject.Repository.ICityRepository City;
+@inject LaerlingProject.Repository.IFagRepository Fag;
+@inject UserManager<ApplicationUser> UserManager
+@model RegisterLaerlingViewModel
+@{
+    ViewData["Title"] = "Opret arbejder profil";
+}
+
+<div class="container">
+
+    <div class="col-md-3" style="margin-top: 20px">
+        <div class="panel panel-default">
+            <div class="panel-body profile-usermenu" style="margin-top:0">
+                <div class="col-md-12 no-padding-left-right">
+                    <ul class="nav">
+                        <li>
+                            <a asp-action="Index">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>&nbsp; Profil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="EditUser">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                <span>&nbsp; Rediger</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="ChangePassword">
+                                <i class="glyphicon glyphicon-lock"></i>
+                                <span>&nbsp; Skift kodeord</span>
+                            </a>
+                        </li>
+                        @if (UserManager.GetUserAsync(User).Result.LaerlingProfilID == null)
+                        {
+                            <li class="active">
+                                <a asp-action="RegisterLaerling">
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    <span>&nbsp; Arbejder</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-action="EditLaerling">
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    <span>&nbsp; Arbejder</span>
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9" style="margin-top: 20px">
+        <div class="panel panel-default">
+            <div class="h3" style="margin-bottom:20px; margin-left: 20px">
+                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                @ViewData["Title"]
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-12" style="padding:20px">
+                    <form asp-controller="Manage" asp-action="RegisterLaerling" method="post" asp-route-returnurl="@ViewData["Manage"]" class="form-horizontal">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="@Model.FagId" class="h4"></label>
+                                <select asp-for="@Model.FagId" asp-items="@(new SelectList(Fag.GetAllFag(), "FagID", "Name"))" class="form-control no-rounded-corners" style="max-width:100%" title="Fag">
+                                    <option hidden value="">Hvad er dit faglige område?</option>
+                                </select>
+                                <span asp-validation-for="@Model.FagId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="@Model.Speciale" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="@Model.Speciale" class="form-control no-rounded-corners" style="max-width:100%" type="text" placeholder="Hvad er dit speciale?" />
+                                <span asp-validation-for="@Model.Speciale" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="@Model.Firma" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="@Model.Firma" class="form-control no-rounded-corners" style="max-width:100%" type="text" placeholder="Hvem arbejder du for?" />
+                                <span asp-validation-for="@Model.Firma" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="@Model.HovedForløb" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="@Model.HovedForløb" class="form-control no-rounded-corners" style="max-width:100%" type="number" placeholder="Hvor langt er du i din uddannelse?" />
+                                <span asp-validation-for="@Model.HovedForløb" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="SelectedCitys" class="h4" style="margin-top:20px"></label>
+                                <select asp-for="SelectedCitys" class="selectcity no-rounded-corners" style="width: 100%; height: 47px">
+                                    @foreach (var v in City.GetAllCity())
+                                    {
+                                        <option data-subtext="@v.PostNo" value="@v.CityId">@v.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="SelectedCitys" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="@Model.Profiltekst" class="h4" style="margin-top:20px"></label>
+                                <textarea asp-for="@Model.Profiltekst" class="form-control no-rounded-corners" style="max-width:100%" rows="5" placeholder="Hvad skal folk vide om dig? Hvad er du god til? Hvad har du af erfaring?"></textarea>
+                                <span asp-validation-for="@Model.Profiltekst" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group-lg">
+                                <div class="col-md-12" style="width: 100%">
+                                    <label asp-for="SelectedCitys" class="h4" style="margin-top:20px"></label>
+                                    <select asp-for="SelectedCitys" asp-items="@(new MultiSelectList(City.GetAllCity(), "CityId", "Name"))" data-style="btn-default btn-lg no-rounded-corners" multiple="multiple" class="selectpicker form-control" data-live-search="true" style="margin: 0"></select>
+                                    <span asp-validation-for="SelectedCitys" class="text-danger"></span>
+                                </div>
+                            </div>*@
+
+
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <hr />
+                                <button type="submit" class="btn btn-lg btn-success no-rounded-corners" style="width:100%">Opret arbejder profil</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>  
+</div>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+
+        $(document).ready(function () {
+            $(".selectcity").select2({
+                placeholder: "Hvilke byer vil du arbejde i?"
+            });
+        });
+
+    }
+</script>

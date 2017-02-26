@@ -1,0 +1,85 @@
+﻿@model IEnumerable<LaerlingProject.Models.Job>
+
+@inject LaerlingProject.Repository.IJobRepository Jobs
+@inject LaerlingProject.Repository.ICityRepository Citys
+@inject LaerlingProject.Repository.IFagRepository Fag
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<div class="container">
+
+    @if (!string.IsNullOrEmpty(ViewData["Message"].ToString()))
+    {
+        <div class="alert alert-danger alert-dismissable fade in" style="margin-top: 10px">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewData["Message"]
+        </div>
+    }
+    <div class="col-md-12">
+        <h2 style="margin-bottom:20px">Alle ledige jobs</h2>
+    </div>
+
+</div>
+
+<div>
+    <div class="container" style="min-height: 100%">
+        <div class="col-md-3">
+            <div class="panel panel-default no-rounded-corners">
+                <div class="panel-body">
+                    <form asp-controller="Jobs" asp-action="" method="get">
+                        <label>By:</label>
+                        <input class="form-control" type="text" />
+                        <br />
+                        <label>Fag:</label>
+                        <input class="form-control" type="text" />
+                        <br />
+                        <label>Min. løn:</label>
+                        <input class="form-control" type="text" />
+                        <br />
+                        <label>Dato:</label>
+                        <input class="form-control" type="text" />
+                        <hr />
+                        <input type="submit" value="Søg" class="btn btn-primary" style="width: 100%" />
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="list-group">
+                @if (Jobs.GetAllCurrentJobs() != null)
+                {
+                    @foreach (var v in Jobs.GetAllCurrentJobs())
+                    {
+                        <a asp-action="Info" asp-route-id="@v.Id" class="a-jobs-list">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-4" style="border-right: dotted">
+                                        <h2 style="margin-top: 10px"><b>@Fag.GetFag(v.FagId).Name</b></h2>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 style="margin-top:3px">@Citys.GetCity(v.CityId).Name</h4>
+                                        <h4 style="margin-bottom:0">@v.OpgaveType</h4>
+                                    </div>
+                                    <div class="col-md-4 right">
+                                        <h4 style="margin-top:3px; text-align: right">@v.Løn DKK</h4>
+                                        <h6 style="margin-top: 15px;margin-bottom:0; text-align: right">@v.JobDato.ToString("dd/MM/yyyy")</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                }
+                else
+                {
+
+                    <h1 class="text-center">Der er desværre ingen ledige jobs lige nu...</h1>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

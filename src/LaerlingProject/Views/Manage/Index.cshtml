@@ -1,0 +1,391 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Profil";
+}
+<div class="container">
+    <div class="row col-md-12">
+        <div class="col-md-12">
+            <div style="margin-top: 10px">
+                @if (!string.IsNullOrEmpty(ViewData["StatusMessage"].ToString()))
+            {
+                    <div class="alert alert-success alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Succes!</strong> @ViewData["StatusMessage"]
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"].ToString()))
+            {
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Der skete en fejl!</strong> @ViewData["ErrorMessage"]
+                    </div>
+                }
+            </div>
+
+            <h2>@Model.CurrentUser.FirstName @Model.CurrentUser.LastName</h2>
+            <hr />
+            <div>
+                <div class="col-md-8 col-sm-12">
+
+                    <div class="col-md-4 col-sm-4">
+                        <div class="img-container">
+                            <img src="~/images/47679727-profile-pictures.jpg" class="img-circle center-block" style="padding: 30px" />
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-8 profile-container" style="padding: 30px">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>Navn:</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>@Model.CurrentUser.FirstName @Model.CurrentUser.LastName</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>Email:</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>@Model.CurrentUser.Email</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>Telefon:</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            @if (Model.CurrentUser.PhoneNumber != null)
+                            {
+                                <p>@Model.CurrentUser.PhoneNumber</p>
+                            }
+                            else
+                            {
+                                <p>Ikke angivet</p>
+                            }
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>Fødselsdag:</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            @if (Model.CurrentUser.Birth != null)
+                            {
+                                <p>@Model.CurrentUser.Birth.Value.ToString("dd/MM/yyyy")</p>
+                            }
+                            else
+                            {
+                                <p>Ikke angivet</p>
+                            }
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>By:</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p>@ViewData["CityName"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <div class="panel panel-info" style="margin-bottom:0">
+                        <div class="panel-heading">
+                            @if (Model.CurrentUser.LaerlingProfilID == null)
+                            {
+                                <h3 class="text-center" style="margin-top: 10px">Er du <b>håndværker?</b></h3>
+                            }
+                            else
+                            {
+                                <h3 class="text-center" style="margin-top: 10px">Arbejder - <b>@ViewData["Fag"]</b></h3>
+                            }
+
+                        </div>
+                        <div class="panel-body">
+                            @if (Model.CurrentUser.LaerlingProfilID == null)
+                            {
+                                <p>For at blive arbejder, skal du oplyse din fødselsdag, din by og dit telefon nummer. Derefter kan du oprette en arbejder profil, og begynde at søge arbejde.</p>
+                            }
+                            else
+                            {
+
+                                <div class="col-md-6">
+                                    <p><b>Speciale:</b> </p>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Speciale != null)
+                                    {
+                                        <p>@Model.LaerlingProfil.Speciale</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Intet speciale valgt</p>
+                                    }
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><b>Firma:</b> </p>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Firma != null)
+                                    {
+                                        <p>@Model.LaerlingProfil.Firma</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Intet firma valgt</p>
+                                    }
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><b>Hovedforløb:</b> </p>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Hovedforløb != null)
+                                    {
+                                        <p>@Model.LaerlingProfil.Hovedforløb</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Intet hovedforløb valgt</p>
+                                    }
+                                </div>
+
+                                <div class="col-md-12">
+                                    <p><b>Profiltekst:</b> </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>@Model.LaerlingProfil.ProfilTekst</p>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <p><b>Byer til rådighed:</b> </p>
+                                </div>
+                                <div class="col-md-12" style="margin-top:5px;">
+                                    <p>
+                                        @foreach (var v in ViewBag.Cities)
+                                        {
+                                            <span class="label label-success">@v.Name</span>
+                                        }
+                                    </p>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*<div class="col-md-3" style="margin-top: 20px">
+            <div class="panel panel-default">
+                <div class="h3" style="margin-bottom:20px; margin-left: 20px">
+                    <span class="glyphicon glyphicon-th-list"></span>&nbsp;
+                    Menu
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body profile-usermenu" style="margin-top:0">
+                    <div class="col-md-12 no-padding-left-right">
+                        <ul class="nav">
+                            <li class="active">
+                                <a asp-action="Index">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    <span>&nbsp; Profil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="EditUser">
+                                    <i class="glyphicon glyphicon-cog"></i>
+                                    <span>&nbsp; Rediger</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="ChangePassword">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    <span>&nbsp; Skift kodeord</span>
+                                </a>
+                            </li>
+                            @if (Model.CurrentUser.LaerlingProfilID == null)
+                            {
+                                <li>
+                                    <a asp-action="RegisterLaerling">
+                                        <i class="glyphicon glyphicon-wrench"></i>
+                                        <span>&nbsp; Arbejder</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-action="EditLaerling">
+                                        <i class="glyphicon glyphicon-wrench"></i>
+                                        <span>&nbsp; Arbejder</span>
+                                    </a>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9" style="margin-top: 20px">
+            <div class="panel panel-default">
+                <div class="h3" style="margin-bottom:20px; margin-left: 20px">
+                    <span class="glyphicon glyphicon-home"></span>&nbsp;
+                    @ViewData["Title"]
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @if (!string.IsNullOrEmpty(ViewData["StatusMessage"].ToString()))
+                    {
+                        <div class="alert alert-success alert-dismissable fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Succes!</strong> @ViewData["StatusMessage"]
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"].ToString()))
+                    {
+                        <div class="alert alert-danger alert-dismissable fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Der skete en fejl!</strong> @ViewData["ErrorMessage"]
+                        </div>
+                    }
+
+                    <div class="col-md-4 hidden-xs">
+                        <img src="http://placehold.it/150x150" class="img-circle center-block" style="padding: 30px" />
+                    </div>
+                    <div class="col-md-8" style="padding: 20px">
+                        <table class="table table-striped" style="margin-bottom:0">
+                            <tr>
+                                <td>Navn: </td>
+                                <td>@Model.CurrentUser.FirstName @Model.CurrentUser.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Email: </td>
+                                <td>@Model.CurrentUser.Email</td>
+                            </tr>
+                            <tr>
+                                <td>Telefon: </td>
+                                @if (Model.CurrentUser.PhoneNumber != null)
+                                {
+                                    <td>@Model.CurrentUser.PhoneNumber</td>
+                                }
+                                else
+                                {
+                                    <td>Ikke angivet</td>
+                                }
+                            </tr>
+                            <tr>
+                                <td>By: </td>
+                                <td>@ViewData["CityName"]</td>
+                            </tr>
+                            <tr>
+                                <td>Fødselsdag:</td>
+                                @if (Model.CurrentUser.Birth != null)
+                                {
+                                    <td>@Model.CurrentUser.Birth.Value.ToString("dd/MM/yyyy")</td>
+                                }
+                                else
+                                {
+                                    <td>Ikke angivet</td>
+                                }
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @if (Model.CurrentUser.LaerlingProfilID != null)
+        {
+            <div class="col-md-9 col-lg-offset-3 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="text-center" style="margin-top:10px">Arbejder - <strong>@ViewData["Fag"]</strong></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-offset-1 col-md-11">
+
+                                <div class="col-md-6">
+                                    <h5>Fag: </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>@ViewData["Fag"]</h5>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Speciale: </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Speciale != null)
+                                    {
+                                        <h5>@Model.LaerlingProfil.Speciale</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>Intet speciale valgt</h5>
+                                    }
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Firma: </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Firma != null)
+                                    {
+                                        <h5>@Model.LaerlingProfil.Firma</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>Intet firma valgt</h5>
+                                    }
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Hovedforløb: </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (Model.LaerlingProfil.Hovedforløb != null)
+                                    {
+                                        <h5>@Model.LaerlingProfil.Hovedforløb</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>Intet hovedforløb valgt</h5>
+                                    }
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Profiltekst: </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 style="line-height: 150%">@Model.LaerlingProfil.ProfilTekst</h5>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Byer til rådighed: </h5>
+                                </div>
+                                <div class="col-md-6" style="margin-top:5px;">
+                                    <p>
+                                        @foreach (var v in ViewBag.Cities)
+                                        {
+                                            <span class="label label-success">@v.Name</span>
+                                        }
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }*@
+
+
+
+</div>

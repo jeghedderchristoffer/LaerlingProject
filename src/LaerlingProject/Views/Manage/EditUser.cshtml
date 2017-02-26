@@ -1,0 +1,160 @@
+﻿@inject LaerlingProject.Repository.ICityRepository City;
+@inject UserManager<ApplicationUser> UserManager
+@model EditUserViewModel
+@{
+    ViewData["Title"] = "Rediger";
+}
+<div class="container">
+    <div class="col-md-3" style="margin-top: 20px">
+        <div class="panel panel-default">
+            <div class="panel-body profile-usermenu" style="margin-top:0">
+                <div class="col-md-12 no-padding-left-right">
+                    <ul class="nav">
+                        <li>
+                            <a asp-action="Index">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>&nbsp; Profil</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a asp-action="EditUser">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                <span>&nbsp; Rediger</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="ChangePassword">
+                                <i class="glyphicon glyphicon-lock"></i>
+                                <span>&nbsp; Skift kodeord</span>
+                            </a>
+                        </li>
+                        @if (UserManager.GetUserAsync(User).Result.LaerlingProfilID == null)
+                        {
+                            <li>
+                                <a asp-action="RegisterLaerling">
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    <span>&nbsp; Arbejder</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-action="EditLaerling">
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    <span>&nbsp; Arbejder</span>
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9" style="margin-top: 20px">
+        <div class="panel panel-default">
+            <div class="h3" style="margin-bottom:20px; margin-left: 20px">
+                <span class="glyphicon glyphicon-cog"></span>&nbsp;
+                @ViewData["Title"]
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @if (!string.IsNullOrEmpty(ViewData["Error"].ToString()))
+            {
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        @ViewData["Error"]
+                    </div>
+                }
+                <div class="col-md-12" style="padding:20px">
+                    <form asp-controller="Manage" asp-action="EditUser" method="post" asp-route-returnurl="@ViewData["Manage"]" class="form-horizontal">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="FirstName" class="h4"></label>
+                                <input asp-for="FirstName" class="form-control no-rounded-corners" style="max-width:100%" type="text" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="LastName" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="LastName" class="form-control no-rounded-corners" style="max-width:100%" type="text" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="Email" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="Email" class="form-control no-rounded-corners" style="max-width:100%" type="email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="CityName" class="h4" style="margin-top:20px"></label>
+
+                            <select asp-for="CityName" class="cselect" style="width:100%">
+                                @foreach (var c in City.GetAllCity())
+                                {
+                                    <option value="@c.Name">@c.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CityName" class="text-danger"></span>
+
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="Birth" class="h4" style="margin-top:20px"></label>
+                                <input asp-for="Birth" class="form-control no-rounded-corners" style="max-width:100%" type="date" />
+                                <span asp-validation-for="Birth" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <label asp-for="PhoneNumber" class="h4" style="margin-top:20px"></label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon no-rounded-corners" id="dkno">+45</span>
+                                    <input asp-for="PhoneNumber" class="form-control no-rounded-corners" style="max-width:100%" type="number" aria-describedby="dkno" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-lg">
+                            <div class="col-md-12">
+                                <hr />
+                                <button type="submit" class="btn btn-lg btn-success no-rounded-corners" style="width:100%">Rediger profil</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+
+        $(document).ready(function () {
+            $(".cselect").select2({
+                placeholder: "Vælg din by"
+            });
+        });
+
+    }
+</script>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

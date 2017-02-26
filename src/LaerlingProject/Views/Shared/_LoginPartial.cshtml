@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LaerlingProject.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div style="margin-right: 20px">
+        <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle toggle-custom" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Profil
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-area="" asp-controller="Manage" asp-action="Index">Se profil</a></li>
+                        <li><a asp-area="" asp-controller="Manage" asp-action="EditUser">Rediger</a></li>
+                        <li><a asp-area="" asp-controller="Manage" asp-action="ChangePassword">Skift kodeord</a></li>
+                        @if (UserManager.GetUserAsync(User).Result.LaerlingProfilID == null)
+                        {
+                            <li><a asp-area="" asp-controller="Manage" asp-action="RegisterLaerling">Arbejder <span class="label label-primary pull-right" style="margin-top: 3px">Registrer</span></a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Manage" asp-action="EditLaerling">Arbejder <span class="label label-primary pull-right" style="margin-top: 3px">Rediger</span></a></li>
+                        }
+
+                        <li role="separator" class="divider"></li>
+
+                        <li><a href="#" onclick="logoutForm.submit();">Log ud</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </form>
+    </div>
+    
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Account" asp-action="Register">Opret</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+    </ul>
+}
